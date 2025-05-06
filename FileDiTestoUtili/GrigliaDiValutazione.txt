@@ -1,0 +1,28 @@
+Griglia di Valutazione del Progetto.
+
+
+ 1. Qualità del Codice (Punti Totali: 4)
+    ● Leggibilità e Organizzazione (2 punti): Il progetto è ben strutturato e organizzato? Sono utilizzati nomi leggibili e significativi per variabili e funzioni? 
+    ● Commenti e Documentazione Interna (2 punti): Il codice è ben commentato, rendendo chiare le funzioni e le logiche implementate? 
+ 
+ 2. Corretto utilizzo di Git/GitHub(Punti Totali: 2) 
+    ● Utilizzo (1 punto): L'utilizzo di git è corretto ed è stato appropriato? 
+    ● Collaborazione (1 punto): É stato utilizzato da tutti i partecipanti? 
+ 
+ 3. Adempimento dei Requisiti (Punti Totali: 6) 
+    ● Completezza (3 punti): Tutti i requisiti funzionali sono soddisfatti? 
+    ● Correttezza e Test (3 punti): Il software funziona correttamente come atteso in tutti i casi di test forniti? Sono inclusi casi di test che coprono i vari scenari? 
+ 
+ 4. Implementazione e Utilizzo degli ADT (Punti Totali: 8) 
+    ● Scelta degli ADT (2 punti): La scelta degli ADT è ben motivata e adeguata alle necessità del progetto? 
+    ● Implementazione degli ADT (2 punti): Gli ADT sono implementati in modo corretto ed efficiente? 
+    ● Integrazione nel Sistema (2 punti): Gli ADT sono integrati in modo efficace nel sistema complessivo per gestire e organizzare il tema della traccia? 
+    ● Memoria (2 punti): Il progetto gestisce correttamente l’allocazione e la deallocazione della memoria?
+ 
+ 5. Specifica Sintattica e Semantica (Punti Totali: 5) 
+    ● Chiarezza e Completezza (2.5 punti): Le specifiche sintattiche e semantiche degli ADT e delle funzioni del sistema sono chiare, complete e correttamente documentate? 
+    ● Corrispondenza con l'Implementazione (2.5 punti): Le specifiche sintattiche e semantiche corrispondono fedelmente all'implementazione nel codice? 
+
+ 6. Documentazione e Report (Punti Totali: 5) 
+    ● Chiarezza e Organizzazione del Report (2 punti): Il report include tutte le sezioni richieste, è ben organizzato, chiaro e facile da seguire?
+    ● Dettaglio Tecnico e Motivazione (3 punti): Il report fornisce una spiegazione dettagliata delle scelte tecniche, inclusa la motivazione per la scelta e l'uso degli ADT? 
