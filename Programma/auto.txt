@@ -1,0 +1,50 @@
+AB123CD fiat 500 25.00  
+XY987ZT tesla model 3 55.00  
+LM456OP renault clio 30.00  
+EF321GH bmw x1 50.00  
+JK654LM audi a3 40.00  
+PO789QR peugeot 208 30.00  
+ST111UV mercedes amg gt 750.00  
+WX222YZ volkswagen golf 75.00  
+GH333IJ mercedes a-class 75.00  
+KL444MN citroen c3 26.00  
+QR555ST opel corsa 29.00  
+UV666WX dacia sandero 24.00  
+YZ777AB ford focus 33.00  
+CD888EF honda civic 37.00  
+GH999IJ skoda fabia 28.00  
+LM000NO kia picanto 23.00  
+PQ111RS hyundai i20 27.00  
+TU222VW mazda cx-3 35.00  
+XY333ZA mini cooper 38.00  
+BC444DE alfa romeo giulietta 65.00  
+FG555HI seat ibiza 30.00  
+JK666LM nissan micra 26.00  
+OP777QR suzuki swift 25.00  
+ST888UV volvo v40 41.00  
+WX999YZ jeep renegade 46.00  
+AB112CD fiat panda 22.00  
+EF223GH toyota aygo 21.00  
+JK334LM audi q2 62.00  
+PO445QR tesla model y 65.00  
+ST556UV bmw i3 60.00  
+WX667YZ peugeot 2008 36.00  
+GH778IJ renault captur 33.00  
+KL889MN citroen c4 34.00  
+QR990ST opel astra 32.00  
+UV101WX dacia duster 31.00  
+YZ212AB ford fiesta 29.00  
+CD323EF honda jazz 27.00  
+GH434IJ skoda scala 30.00  
+LM545NO kia ceed 35.00  
+PQ656RS hyundai kona 39.00  
+TU767VW mazda 3 36.00  
+XY878ZA mini countryman 44.00  
+BC989DE alfa romeo tonale 90.00  
+FG090HI seat leon 37.00  
+JK101LM nissan juke 33.00  
+OP212QR suzuki vitara 35.00  
+ST323UV volvo xc40 55.00  
+WX434YZ jeep compass 47.00  
+GH545IJ ferrari 488 1000.00  
+KL656MN mercedes classe b 70.00  
