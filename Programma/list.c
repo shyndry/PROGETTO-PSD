@@ -21,7 +21,7 @@ int emptyList(list l)
 
 list consList(item val, list l)
 {
-    list node= malloc(sizeof(struct node);
+    list node= malloc(sizeof(struct node));
     node->value=val;
     node->next=l;
     return node;
@@ -29,7 +29,7 @@ list consList(item val, list l)
 
 list tailList(list l)
 {
-    
+    list temp = l;
     if (emptyList(l)) {
         return NULL; 
     }
@@ -58,7 +58,7 @@ item getFirst (list l)
         obj = NULLITEM;
     }
     
-    return o;   
+    return obj;   
 }
 
 int sizeList (list l)
@@ -93,9 +93,9 @@ int posItem (list l, item val)
     int count=0;
     int PosNum=0;
     list temp= l;  
-    if (emptyList(l)
+    if (emptyList(l))
     {
-        return NULL;
+        return -1;
     }
     while (temp != NULL)
     {
@@ -113,23 +113,23 @@ item getItem (list l, int pos)
     int count=0;
     item obj;
     list temp= l;
-    if (emptyList(l)
+    if (emptyList(l))
     {
         return NULL;
     }
-    while (temp != list && count<pos)
+    while (temp != temp && count<pos)
     {
         count++;
         temp =tailList(temp);
     }
     if (!emptyList(temp))
     {
-        obj = getFirst(temp)
+        obj = getFirst(temp);
     }
     else{
         obj = NULLITEM;
     }
-    return e;
+    return obj;
 }
 
 list reverseList (list l)
