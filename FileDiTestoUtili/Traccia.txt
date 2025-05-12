@@ -18,4 +18,5 @@ Casi di Test:
 Report: 
 ● Motivazione della Scelta dell'ADT: Descrivere le ragioni per cui gli ADT selezionati sono ottimali. 
 ● Progettazione: Illustrare la struttura del sistema e come i diversi componenti interagiscono tra loro. 
-● Specifica Sintattica e Semantica: Elencare e descrivere le operazioni che possono essere eseguite sugli ADT scelti, inclusi pre e post condizioni, i loro input, output e effetti collaterali. ● Razionale dei Casi di Test
+● Specifica Sintattica e Semantica: Elencare e descrivere le operazioni che possono essere eseguite sugli ADT scelti, inclusi pre e post condizioni, i loro input, output e effetti collaterali. 
+● Razionale dei Casi di Test
