@@ -13,7 +13,7 @@ typedef struct NodoPrenotazione {
 } *ListaPrenotazioni;
 
 Prenotazione creaPrenotazione(char *email, Veicolo v, int giorni);
-void finePrenotazione(Prenotazione p);
+void finePrenotazione(Prenotazione p, Veicolo v);
 
 float calcoloCosto(Prenotazione p);
 void stampaPrenotazione(Prenotazione p);
