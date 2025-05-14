@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "item.h"
 #include "list.h"
 
 struct node {
@@ -106,4 +105,4 @@ item getItem(list l, int pos) {
     } else {
         obj = NULLITEM;
     }
-   
+}
