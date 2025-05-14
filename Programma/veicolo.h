@@ -1,5 +1,6 @@
 #ifndef VEICOLO_H
 #define VEICOLO_H
+#define NULLITEM 0
 
 #include <time.h>
 #include "list.h"

@@ -1,5 +1,6 @@
 #include "veicolo.h"
 
+
 typedef struct node *list;
 
 list newList(void);

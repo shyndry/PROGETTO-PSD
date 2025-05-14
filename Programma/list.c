@@ -3,7 +3,7 @@
 #include "list.h"
 
 struct node {
-    item value;
+    Veicolo value;
     struct node *next;
 };
 
@@ -15,7 +15,7 @@ int emptyList(list l) {
     return l == NULL;
 }
 
-list consList(item val, list l) {
+list consList(Veicolo val, list l) {
     list node = malloc(sizeof(struct node));
     node->value = val;
     node->next = l;
@@ -35,8 +35,8 @@ list tailList(list l) {
     return temp;
 }
 
-item getFirst(list l) {
-    item obj;
+Veicolo getFirst(list l) {
+    Veicolo obj;
     if (emptyList(l)) {
         return NULL;
     }
@@ -60,7 +60,7 @@ int sizeList(list l) {
 
 void outputList(list l) {
     int i = 0;
-    item val;
+    Veicolo val;
     list temp = l;
 
     while (!emptyList(temp)) {
@@ -73,7 +73,7 @@ void outputList(list l) {
     }
 }
 
-int posItem(list l, item val) {
+int posItem(list l, Veicolo val) {
     int count = 0;
     int PosNum = 0;
     list temp = l;
@@ -89,9 +89,9 @@ int posItem(list l, item val) {
     return PosNum;
 }
 
-item getItem(list l, int pos) {
+Veicolo getItem(list l, int pos) {
     int count = 0;
-    item obj;
+    Veicolo obj;
     list temp = l;
     if (emptyList(l)) {
         return NULL;
