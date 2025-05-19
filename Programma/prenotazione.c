@@ -11,90 +11,51 @@ struct prenotazione {
     Veicolo veicolo;
     time_t inizio;
     time_t fine;
-    float costoTot;
+    float costo_totale;
 };
 
-Prenotazione creaPrenotazione(char *email, Veicolo v, int giorni) {
-    Prenotazione p = malloc(sizeof(struct prenotazione));
-    strcpy(p->email, email);
-    p->veicolo = v;
+Prenotazione crea_prenotazione(char *email, Veicolo veicolo, int giorni) {
+    Prenotazione prenotazione = malloc(sizeof(struct prenotazione));
+    strcpy(prenotazione->email, email);
+    prenotazione->veicolo = veicolo;
 
-    time(&p->inizio);
-    p->fine = p->inizio + (time_t)giorni * 24 * 3600;
+    time(&prenotazione->inizio);
+    prenotazione->fine = prenotazione->inizio + (time_t)giorni * 86400;
+    prenotazione->costo_totale = giorni * prendi_costo_giornaliero(veicolo);
 
-    p->costoTot = giorni * infoCostoGiornaliero(v);
+    imposta_disponibilita(veicolo, 0);
+    imposta_fine_noleggio(veicolo, prenotazione->fine);
 
-    impostaDisponibilita(v, 0);
-    impostaFineNoleggio(v, p->fine);
-
-    return p;
+    return prenotazione;
 }
 
-float calcoloCosto(Prenotazione p) {
-    return p->costoTot;
+float calcola_costo(Prenotazione prenotazione) {
+    return prenotazione->costo_totale;
 }
 
-void salvaStorico(Prenotazione p) {
-    FILE *f = fopen("StoricoNoleggi.txt", "a");
-    if (!f) {
-        perror("Impossibile aprire StoricoNoleggi.txt");
+void salva_storico(Prenotazione prenotazione) {
+    FILE *file = fopen("storico_noleggi.txt", "a");
+    if (!file) {
+        perror("Errore nell'apertura del file storico_noleggi.txt");
         return;
     }
 
-    fprintf(f,
-            "Email: %s | Targa: %s | Inizio: %ld | Fine: %ld | Costo: %.2f\n",
-            prendiEmailUtente(p),
-            infoTarga(infoVeicolo(p)),
-            (long)prendiOrarioInizio(p),
-            (long)prendiOrarioFine(p),
-            calcoloCosto(p));
+    fprintf(file, "Email: %s | Targa: %s | Inizio: %ld | Fine: %ld | Costo: %.2f\n",
+            prendi_email(prenotazione),
+            prendi_targa(prenotazione->veicolo),
+            prenotazione->inizio,
+            prenotazione->fine,
+            calcola_costo(prenotazione));
 
-    fclose(f);
+    fclose(file);
 }
 
-void finePrenotazione(Prenotazione p, Veicolo v) {
-    time_t now;
-    time(&now);
-    if (now >= p->fine) {
-        impostaDisponibilita(v, 1);
-        impostaFineNoleggio(v, 0);
-        salvaStorico(p);
+void termina_prenotazione(Prenotazione prenotazione, Veicolo veicolo) {
+    time_t ora_corrente;
+    time(&ora_corrente);
+    if (ora_corrente >= prenotazione->fine) {
+        imposta_disponibilita(veicolo, 1);
+        imposta_fine_noleggio(veicolo, 0);
+        salva_storico(prenotazione);
     }
-}
-
-char *prendiEmailUtente(Prenotazione p) {
-    return p->email;
-}
-
-Veicolo infoVeicolo(Prenotazione p) {
-    return p->veicolo;
-}
-
-time_t prendiOrarioInizio(Prenotazione p) {
-    return p->inizio;
-}
-
-time_t prendiOrarioFine(Prenotazione p) {
-    return p->fine;
-}
-
-int Disponibile(ListaPrenotazioni lista, Veicolo v, time_t inizio, time_t fine) {
-    while (lista) {
-        if (infoVeicolo(lista->p) == v) {
-            time_t i = prendiOrarioInizio(lista->p), f = prendiOrarioFine(lista->p);
-            if (!(fine <= i || inizio >= f)) {
-                return 0;
-            }
-        }
-        lista = tailList(lista);
-    }
-    return 1;
-}
-
-void stampaPrenotazione(Prenotazione p) {
-    printf("Email: %s\n", prendiEmailUtente(p));
-    printf("Targa: %s\n", infoTarga(infoVeicolo(p)));
-    printf("Inizio: %s", ctime(&p->inizio));
-    printf("Fine: %s", ctime(&p->fine));
-    printf("Costo totale: %.2f €\n", calcoloCosto(p));
 }

@@ -2,107 +2,52 @@
 #include <stdlib.h>
 #include "list.h"
 
-struct node {
-    Veicolo value;
-    struct node *next;
+struct nodo {
+    Veicolo valore;
+    struct nodo *prossimo;
 };
 
-list newList(void) {
+lista nuova_lista(void) {
     return NULL;
 }
 
-int emptyList(list l) {
-    return l == NULL;
+int lista_vuota(lista lista_corrente) {
+    return lista_corrente == NULL;
 }
 
-list consList(Veicolo val, list l) {
-    list node = malloc(sizeof(struct node));
-    node->value = val;
-    node->next = l;
-    return node;
+lista aggiungi_a_lista(Veicolo elemento, lista lista_corrente) {
+    lista nodo = malloc(sizeof(struct nodo));
+    nodo->valore = elemento;
+    nodo->prossimo = lista_corrente;
+    return nodo;
 }
 
-list tailList(list l) {
-    list temp = l;
-    if (emptyList(l)) {
+lista ottieni_coda_lista(lista lista_corrente) {
+    if (lista_vuota(lista_corrente)) {
         return NULL;
     }
-    if (l != NULL) {
-        temp = l->next;
-    } else {
-        temp = NULL;
-    }
-    return temp;
+    return lista_corrente->prossimo;
 }
 
-Veicolo getFirst(list l) {
-    Veicolo obj;
-    if (emptyList(l)) {
+Veicolo ottieni_primo_elemento(lista lista_corrente) {
+    if (lista_vuota(lista_corrente)) {
         return NULL;
     }
-    if (l != NULL) {
-        obj = l->value;
-    } else {
-        obj = NULLITEM;
-    }
-    return obj;
+    return lista_corrente->valore;
 }
 
-int sizeList(list l) {
-    int n = 0;
-    list temp = l;
-    while (!emptyList(temp)) {
-        n++;
-        temp = tailList(temp);
-    }
-    return n;
-}
-
-void outputList(list l) {
-    int i = 0;
-    Veicolo val;
-    list temp = l;
-
-    while (!emptyList(temp)) {
-        val = getFirst(temp);
-        printf("Elemento di posizione %d: ", i);
-        output_item(val);
-        printf("\n");
-        temp = tailList(temp);
-        i++;
-    }
-}
-
-int posItem(list l, Veicolo val) {
+int dimensione_lista(lista lista_corrente) {
     int count = 0;
-    int PosNum = 0;
-    list temp = l;
-    if (emptyList(l)) {
-        return -1;
-    }
-    while (temp != NULL) {
-        if (val == temp->value) {
-            PosNum = count;
-        }
+    while (!lista_vuota(lista_corrente)) {
+        lista_corrente = ottieni_coda_lista(lista_corrente);
         count++;
     }
-    return PosNum;
+    return count;
 }
 
-Veicolo getItem(list l, int pos) {
-    int count = 0;
-    Veicolo obj;
-    list temp = l;
-    if (emptyList(l)) {
-        return NULL;
-    }
-    while (temp != NULL && count < pos) {
-        count++;
-        temp = tailList(temp);
-    }
-    if (!emptyList(temp)) {
-        obj = getFirst(temp);
-    } else {
-        obj = NULLITEM;
+void stampa_lista(lista lista_corrente) {
+    while (!lista_vuota(lista_corrente)) {
+        stampa_veicolo(ottieni_primo_elemento(lista_corrente));
+        lista_corrente = ottieni_coda_lista(lista_corrente);
     }
 }

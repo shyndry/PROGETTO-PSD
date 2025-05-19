@@ -1,24 +1,23 @@
 #include "veicolo.h"
 
+typedef struct nodo *lista;
 
-typedef struct node *list;
+lista nuova_lista(void);
 
-list newList(void);
+int lista_vuota(lista lista_corrente);
 
-int emptyList(list l);
+lista aggiungi_a_lista(Veicolo elemento, lista lista_corrente);
 
-list consList(Veicolo val, list l);
+lista ottieni_coda_lista(lista lista_corrente);
 
-list tailList(list l);
+Veicolo ottieni_primo_elemento(lista lista_corrente);
 
-Veicolo getFirst (list l);
+int dimensione_lista(lista lista_corrente);
 
-int sizeList (list l);
+int posizione_elemento(lista lista_corrente, Veicolo elemento);
 
-int posItem (list l, Veicolo val);
+Veicolo ottieni_elemento(lista lista_corrente, int posizione);
 
-Veicolo getItem (list l, int pos);
+lista inverti_lista(lista lista_corrente);
 
-list reverseList (list l);
-
-void outputList (list l);
+void stampa_lista(lista lista_corrente);

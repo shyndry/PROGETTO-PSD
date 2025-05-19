@@ -7,23 +7,23 @@
 
 typedef struct prenotazione *Prenotazione;
 
-typedef struct NodoPrenotazione {
-    Prenotazione p;
-    struct NodoPrenotazione *next;
+typedef struct nodo_prenotazione {
+    Prenotazione prenotazione;
+    struct nodo_prenotazione *prossimo;
 } *ListaPrenotazioni;
 
-Prenotazione creaPrenotazione(char *email, Veicolo v, int giorni);
-void finePrenotazione(Prenotazione p, Veicolo v);
+Prenotazione crea_prenotazione(char *email, Veicolo veicolo, int giorni);
+void termina_prenotazione(Prenotazione prenotazione, Veicolo veicolo);
 
-float calcoloCosto(Prenotazione p);
-void stampaPrenotazione(Prenotazione p);
+float calcola_costo(Prenotazione prenotazione);
+void stampa_prenotazione(Prenotazione prenotazione);
 
-char *prendiEmailUtente(Prenotazione p);
-Veicolo infoVeicolo(Prenotazione p);
-time_t prendiOrarioInizio(Prenotazione p);
-time_t prendiOrarioFine(Prenotazione p);
+char *prendi_email(Prenotazione prenotazione);
+Veicolo prendi_veicolo(Prenotazione prenotazione);
+time_t prendi_inizio(Prenotazione prenotazione);
+time_t prendi_fine(Prenotazione prenotazione);
 
-int Disponibile(ListaPrenotazioni lista, Veicolo v, time_t inizio, time_t fine);
-void salvaStorico(Prenotazione p);
+int verifica_disponibilita(ListaPrenotazioni lista, Veicolo veicolo, time_t inizio, time_t fine);
+void salva_storico(Prenotazione prenotazione);
 
 #endif

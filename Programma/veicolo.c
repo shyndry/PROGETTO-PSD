@@ -7,52 +7,52 @@
 struct veicolo {
     char targa[20];
     char modello[50];
-    float costoGiornaliero;
+    float costo_giornaliero;
     int disponibile;
-    time_t fineNoleggio;
+    time_t fine_noleggio;
 };
 
-Veicolo creaVeicolo(char *targa, char *modello, float costoGiornaliero) {
-    Veicolo v = malloc(sizeof(struct veicolo));
-    strcpy(v->targa, targa);
-    strcpy(v->modello, modello);
-    v->costoGiornaliero = costoGiornaliero;
-    v->disponibile = 1;
-    v->fineNoleggio = 0;
-    return v;
+Veicolo crea_veicolo(char *targa, char *modello, float costo_giornaliero) {
+    Veicolo veicolo = malloc(sizeof(struct veicolo));
+    strcpy(veicolo->targa, targa);
+    strcpy(veicolo->modello, modello);
+    veicolo->costo_giornaliero = costo_giornaliero;
+    veicolo->disponibile = 1;
+    veicolo->fine_noleggio = 0;
+    return veicolo;
 }
 
-void stampaVeicolo(Veicolo v) {
+void stampa_veicolo(Veicolo veicolo) {
     printf("Targa: %s | Modello: %s | Costo: %.2f€/giorno | Disponibile: %s\n",
-           v->targa, v->modello, v->costoGiornaliero, v->disponibile ? "Sì" : "No");
+           veicolo->targa, veicolo->modello, veicolo->costo_giornaliero, veicolo->disponibile ? "Sì" : "No");
 }
 
-char *infoTarga(Veicolo v) {
-    return v->targa;
+char *prendi_targa(Veicolo veicolo) {
+    return veicolo->targa;
 }
 
-float infoCostoGiornaliero(Veicolo v) {
-    return v->costoGiornaliero;
+float prendi_costo_giornaliero(Veicolo veicolo) {
+    return veicolo->costo_giornaliero;
 }
 
-int infoDisponibilita(Veicolo v) {
-    return v->disponibile;
+int verifica_disponibilita(Veicolo veicolo) {
+    return veicolo->disponibile;
 }
 
-void impostaDisponibilita(Veicolo v, int stato) {
-    v->disponibile = stato;
+void imposta_disponibilita(Veicolo veicolo, int stato) {
+    veicolo->disponibile = stato;
 }
 
-time_t fineNoleggio(Veicolo v) {
-    return v->fineNoleggio;
+time_t prendi_fine_noleggio(Veicolo veicolo) {
+    return veicolo->fine_noleggio;
 }
 
-void impostaFineNoleggio(Veicolo v, time_t fine) {
-    v->fineNoleggio = fine;
+void imposta_fine_noleggio(Veicolo veicolo, time_t fine) {
+    veicolo->fine_noleggio = fine;
 }
 
-ListaVeicoli caricaVeicoliDaFile(const char *nomefile) {
-    FILE *fp = fopen(nomefile, "r");
+ListaVeicoli carica_veicoli_da_file(const char *nome_file) {
+    FILE *fp = fopen(nome_file, "r");
     if (!fp) return NULL;
 
     ListaVeicoli testa = NULL;
@@ -60,10 +60,10 @@ ListaVeicoli caricaVeicoliDaFile(const char *nomefile) {
     float costo;
 
     while (fscanf(fp, "%s %s %f", targa, modello, &costo) == 3) {
-        Veicolo v = creaVeicolo(targa, modello, costo);
-        ListaVeicoli nuovo = malloc(sizeof(struct NodoVeicolo));
-        nuovo->v = v;
-        nuovo->next = testa;
+        Veicolo veicolo = crea_veicolo(targa, modello, costo);
+        ListaVeicoli nuovo = malloc(sizeof(struct nodo_veicolo));
+        nuovo->veicolo = veicolo;
+        nuovo->prossimo = testa;
         testa = nuovo;
     }
 
@@ -71,13 +71,13 @@ ListaVeicoli caricaVeicoliDaFile(const char *nomefile) {
     return testa;
 }
 
-void aggiornaDisponibilita(ListaVeicoli lista) {
-    time_t now;
-    time(&now);
+void aggiorna_disponibilita(ListaVeicoli lista) {
+    time_t ora_attuale;
+    time(&ora_attuale);
     while (lista) {
-        if (!infoDisponibilita(lista->v) && now >= fineNoleggio(lista->v)) {
-            impostaDisponibilita(lista->v, 1);
+        if (!verifica_disponibilita(lista->veicolo) && ora_attuale >= prendi_fine_noleggio(lista->veicolo)) {
+            imposta_disponibilita(lista->veicolo, 1);
         }
-        lista = tailList(lista);
+        lista = ottieni_coda_lista(lista);
     }
 }
