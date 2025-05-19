@@ -53,8 +53,7 @@ void accedi(char *email){
     {
         flag=trova_email(email, fp);
         if(flag){
-            printf("mail errata o accunt non esistente:\n  
-                riprovare (1)\n  crea account(2)\n  esci dal programma(3)\n");
+            printf("mail errata o accunt non esistente:\n  riprovare (1)\n  crea account(2)\n  esci dal programma(3)\n");
             scanf("%d", &j);
             getchar();
             memset(email, 0, 51);
@@ -75,7 +74,6 @@ void accedi(char *email){
         buffer[j++]=c;
     }
     buffer[j]='\0';
-    printf("%s\n", buffer);
     j=0;
     while(flag)/*permette all' utente di inserire la password e la controlla 
     con un massimo di 4 tentativi*/
