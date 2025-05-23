@@ -71,7 +71,8 @@ int trova_email(char *email, FILE *fp) {
 void accedi(char *email) {
     int j = 0, flag = 1;
     FILE *fp = fopen("utenti.txt", "r");
-    
+    char c;
+
     if(fp == NULL) {
         printf("Errore nell'apertura del file utenti.txt\n");
         exit(EXIT_FAILURE);
@@ -110,8 +111,8 @@ void accedi(char *email) {
     j = 0;
     
     /* Legge la password dal file */
-    while((flag = (fgetc(fp) != EOF)) && flag != '\n') {
-        buffer[j++] = flag;
+    while((c = fgetc(fp) != EOF) && c != '\n') {
+        buffer[j++] = c;
     }
     buffer[j] = '\0';
     

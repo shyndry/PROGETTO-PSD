@@ -1,9 +1,6 @@
 #ifndef LIST_H
 #define LIST_H
 
-typedef struct veicolo *Veicolo;
-
-
 /**
  * Tipo di riferimento lista - ADT per gestire liste di veicoli.
  * Implementa una lista concatenata di elementi di tipo Veicolo.
@@ -37,7 +34,7 @@ int lista_vuota(lista lista_corrente);
  *
  * Ritorna: La lista aggiornata con il nuovo elemento in testa.
  */
-lista aggiungi_a_lista(Veicolo elemento, lista lista_corrente);
+lista aggiungi_a_lista(void *elemento, lista lista_corrente);
 
 /**
  * Ottiene la coda della lista (tutti gli elementi tranne il primo).
@@ -57,7 +54,7 @@ lista ottieni_coda_lista(lista lista_corrente);
  *
  * Ritorna: Il primo veicolo della lista, NULL se la lista è vuota.
  */
-Veicolo ottieni_primo_elemento(lista lista_corrente);
+void* ottieni_primo_elemento(lista lista_corrente);
 
 /**
  * Calcola la dimensione (numero di elementi) della lista.
@@ -70,17 +67,6 @@ Veicolo ottieni_primo_elemento(lista lista_corrente);
 int dimensione_lista(lista lista_corrente);
 
 /**
- * Trova la posizione di un elemento nella lista.
- *
- * Pre-condizione: l != NULL, v != NULL
- * Post-condizione: pos = indice dell'elemento v in l se presente,
- *                  pos = -1 se v non è presente in l.
- *
- * Ritorna: L'indice dell'elemento se presente, -1 altrimenti.
- */
-int posizione_elemento(lista lista_corrente, Veicolo elemento);
-
-/**
  * Ottiene l'elemento alla posizione specificata.
  *
  * Pre-condizione: l != NULL, 0 <= pos < dimensione_lista(l)
@@ -88,7 +74,7 @@ int posizione_elemento(lista lista_corrente, Veicolo elemento);
  *
  * Ritorna: Il veicolo alla posizione specificata, NULL se non esistente.
  */
-Veicolo ottieni_elemento(lista lista_corrente, int posizione);
+void *ottieni_elemento(lista lista_corrente, int posizione);
 
 /**
  * Inverte l'ordine degli elementi nella lista.
@@ -99,13 +85,3 @@ Veicolo ottieni_elemento(lista lista_corrente, int posizione);
  * Ritorna: Una nuova lista con gli elementi in ordine invertito.
  */
 lista inverti_lista(lista lista_corrente);
-
-/**
- * Stampa tutti gli elementi della lista.
- *
- * Pre-condizione: l != NULL
- * Post-condizione: Tutti i veicoli della lista vengono stampati a video.
- */
-void stampa_lista(lista lista_corrente);
-
-#endif /* LIST_H */

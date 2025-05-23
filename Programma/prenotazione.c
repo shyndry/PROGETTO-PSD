@@ -24,6 +24,19 @@ struct prenotazione {
     float costo_totale;     /* Costo totale della prenotazione */
 };
 
+float calcola_costo(time_t inizio, time_t fine, float costo){
+    int giorni;
+    float prezzo;
+    giorni=((fine-inizio)/86400)+1;
+    prezzo= giorni*costo;
+    if(giorni<30){
+        return prezzo;
+    }else{
+        return prezzo-=(prezzo/100)*20;
+    }
+    
+}
+
 /**
  * Crea una nuova prenotazione per un veicolo.
  * 
@@ -34,7 +47,7 @@ struct prenotazione {
  * Pre-condizione: email != NULL && strlen(email) > 0, veicolo != NULL, giorni > 0
  * Post-condizione: La prenotazione viene creata con i dati specificati
  */
-Prenotazione crea_prenotazione(char *email, Veicolo veicolo, int giorni) {
+Prenotazione crea_prenotazione(char *email, Veicolo veicolo, time_t inizio, time_t fine) {
     Prenotazione prenotazione = malloc(sizeof(struct prenotazione));
     if (prenotazione == NULL) {
         fprintf(stderr, "Errore di allocazione memoria per prenotazione\n");
@@ -45,11 +58,14 @@ Prenotazione crea_prenotazione(char *email, Veicolo veicolo, int giorni) {
     prenotazione->veicolo = veicolo;
 
     /* Imposta il periodo della prenotazione */
-    time(&prenotazione->inizio);
-    prenotazione->fine = prenotazione->inizio + (time_t)giorni * 86400; /* 86400 secondi = 1 giorno */
+    prenotazione->inizio=inizio;
+    prenotazione->fine = fine;
     
+    prenotazione->costo_totale = calcola_costo(inizio, fine, infoCostoGiornaliero(veicolo));
+
     /* Calcola il costo totale in base al costo giornaliero del veicolo */
-    prenotazione->costo_totale = giorni * prendi_costo_giornaliero(veicolo);
+    prenotazione->costo_totale = calcola_costo(inizio, fine, infoCostoGiornaliero(veicolo));
+
 
     /* Segna il veicolo come non disponibile e imposta la fine del noleggio */
     imposta_disponibilita(veicolo, 0);
@@ -64,7 +80,7 @@ Prenotazione crea_prenotazione(char *email, Veicolo veicolo, int giorni) {
  * Pre-condizione: prenotazione != NULL, fine(p) > inizio(p)
  * Post-condizione: Ritorna il costo totale della prenotazione
  */
-float calcola_costo(Prenotazione prenotazione) {
+float prendi_costo(Prenotazione prenotazione) {
     return prenotazione->costo_totale;
 }
 
@@ -138,6 +154,10 @@ time_t prendi_fine(Prenotazione prenotazione) {
     return prenotazione->fine;
 }
 
+char *prendi_targa_veicolo(Prenotazione p){
+    return prendi_targa(prendi_veicolo(p));
+}
+
 /**
  * Salva i dettagli di una prenotazione nel file storico.
  * 
@@ -156,7 +176,7 @@ void salva_storico(Prenotazione prenotazione) {
             prendi_targa(prenotazione->veicolo),
             prenotazione->inizio,
             prenotazione->fine,
-            calcola_costo(prenotazione));
+            prendi_costo(prenotazione));
 
     fclose(file);
 }

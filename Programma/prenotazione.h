@@ -27,16 +27,18 @@ typedef struct nodo_prenotazione {
     struct nodo_prenotazione *prossimo;
 } *ListaPrenotazioni;
 
+float calcola_costo(time_t inizio, time_t fine, float costo)
+
 /**
  * Crea una nuova prenotazione per un veicolo.
  *
- * Pre-condizione: email != NULL && strlen(email) > 0, veicolo != NULL, giorni > 0
- * Post-condizione: email(p) = email, veicolo(p) = veicolo, inizio(p) = time(NULL),
- *                 fine(p) = inizio(p) + giorni*86400, costo_totale(p) = giorni * prendi_costo_giornaliero(veicolo)
+ * Pre-condizione: email != NULL && strlen(email) > 0, veicolo != NULL, giorni > 0, inzio<=fine
+ * Post-condizione: email(p) = email, veicolo(p) = veicolo, inizio(p) = inizio,
+ *                 fine(p) = fine, costo_totale(p) = giorni * prendi_costo_giornaliero(veicolo)
  *
  * Ritorna: Una nuova prenotazione inizializzata
  */
-Prenotazione crea_prenotazione(char *email, Veicolo veicolo, int giorni);
+Prenotazione crea_prenotazione(char *email, Veicolo veicolo, time_t inzio, time_t fine);
 
 /**
  * Termina una prenotazione esistente.
@@ -47,14 +49,14 @@ Prenotazione crea_prenotazione(char *email, Veicolo veicolo, int giorni);
 void termina_prenotazione(Prenotazione prenotazione, Veicolo veicolo);
 
 /**
- * Calcola il costo totale di una prenotazione.
+ * visualizza il costo totale di una prenotazione.
  *
  * Pre-condizione: prenotazione != NULL, fine(p) > inizio(p)
  * Post-condizione: costo = costo_totale(p)
  *
  * Ritorna: Il costo totale della prenotazione
  */
-float calcola_costo(Prenotazione prenotazione);
+float prendi_costo(Prenotazione prenotazione);
 
 /**
  * Stampa i dettagli di una prenotazione.
@@ -103,6 +105,8 @@ time_t prendi_inizio(Prenotazione prenotazione);
  * Ritorna: Timestamp di fine prenotazione
  */
 time_t prendi_fine(Prenotazione prenotazione);
+
+char *prendi_targa_veicolo(Prenotazione p);
 
 /**
  * Verifica la disponibilità di un veicolo in un intervallo di tempo.

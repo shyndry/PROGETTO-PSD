@@ -15,11 +15,11 @@
  * Contiene tutte le informazioni relative a un veicolo nel sistema.
  */
 struct veicolo {
-    char targa[20];             /* Targa del veicolo (identificatore univoco) */
+    char targa[8];              /* Targa del veicolo (identificatore univoco) */
     char modello[50];           /* Modello del veicolo */
+    char luogo[20];             /* luogo dove si torva il veicolo */
     float costo_giornaliero;    /* Costo giornaliero di noleggio */
     int disponibile;            /* Flag di disponibilità: 1 se disponibile, 0 se in noleggio */
-    time_t fine_noleggio;       /* Timestamp di fine noleggio (se in noleggio) */
 };
 
 /**
@@ -31,7 +31,7 @@ struct veicolo {
  * Pre-condizione: targa != NULL, modello != NULL, costo_giornaliero > 0
  * Post-condizione: Viene creato un nuovo veicolo con i dati specificati
  */
-Veicolo crea_veicolo(char *targa, char *modello, float costo_giornaliero) {
+Veicolo crea_veicolo(char *targa, char *modello, float costo_giornaliero, char *luogo) {
     Veicolo veicolo = malloc(sizeof(struct veicolo));
     if (veicolo == NULL) {
         fprintf(stderr, "Errore di allocazione memoria per veicolo\n");
@@ -41,11 +41,12 @@ Veicolo crea_veicolo(char *targa, char *modello, float costo_giornaliero) {
     /* Inizializza i campi del veicolo */
     strcpy(veicolo->targa, targa);
     strcpy(veicolo->modello, modello);
+    strcpy(veicolo->luogo, luogo);
     veicolo->costo_giornaliero = costo_giornaliero;
+
     
     /* Imposta il veicolo come disponibile */
     veicolo->disponibile = 1;
-    veicolo->fine_noleggio = 0;
     
     return veicolo;
 }
@@ -60,9 +61,9 @@ Veicolo crea_veicolo(char *targa, char *modello, float costo_giornaliero) {
  * Post-condizione: Le informazioni del veicolo vengono visualizzate a video
  */
 void stampa_veicolo(Veicolo veicolo) {
-    printf("Targa: %s | Modello: %s | Costo: %.2f€/giorno | Disponibile: %s\n",
+    printf("Targa: %s | Modello: %s | Costo: %.2f€/giorno | luogo: %s\n",
            veicolo->targa, veicolo->modello, veicolo->costo_giornaliero, 
-           veicolo->disponibile ? "Sì" : "No");
+           veicolo->luogo );
 }
 
 /**
@@ -103,26 +104,6 @@ int verifica_disponibilita(Veicolo veicolo) {
  */
 void imposta_disponibilita(Veicolo veicolo, int stato) {
     veicolo->disponibile = stato;
-}
-
-/**
- * Restituisce il timestamp di fine noleggio di un veicolo.
- * 
- * Pre-condizione: veicolo != NULL
- * Post-condizione: Ritorna il timestamp di fine noleggio
- */
-time_t prendi_fine_noleggio(Veicolo veicolo) {
-    return veicolo->fine_noleggio;
-}
-
-/**
- * Imposta il timestamp di fine noleggio di un veicolo.
- * 
- * Pre-condizione: veicolo != NULL
- * Post-condizione: Il timestamp di fine noleggio viene aggiornato
- */
-void imposta_fine_noleggio(Veicolo veicolo, time_t fine) {
-    veicolo->fine_noleggio = fine;
 }
 
 /**

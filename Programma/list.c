@@ -12,10 +12,10 @@
 
 /**
  * Struttura interna del nodo della lista.
- * Ogni nodo contiene un puntatore a un veicolo e un puntatore al nodo successivo.
+ * Ogni nodo contiene un puntatore a un elemento generico e un puntatore al nodo successivo.
  */
 struct nodo {
-    Veicolo valore;
+    void *valore;
     struct nodo *prossimo;
 };
 
@@ -44,7 +44,7 @@ int lista_vuota(lista lista_corrente) {
  * Pre-condizione: elemento != NULL
  * Post-condizione: Ritorna una nuova lista con l'elemento aggiunto in testa.
  */
-lista aggiungi_a_lista(Veicolo elemento, lista lista_corrente) {
+lista aggiungi_a_lista(void elemento, lista lista_corrente) {
     lista nodo = malloc(sizeof(struct nodo));
     if (nodo == NULL) {
         fprintf(stderr, "Errore di allocazione memoria\n");
@@ -74,7 +74,7 @@ lista ottieni_coda_lista(lista lista_corrente) {
  * Pre-condizione: lista_corrente è una lista valida
  * Post-condizione: Ritorna il primo veicolo della lista o NULL se vuota.
  */
-Veicolo ottieni_primo_elemento(lista lista_corrente) {
+void *ottieni_primo_elemento(lista lista_corrente) {
     if (lista_vuota(lista_corrente)) {
         return NULL;
     }
@@ -97,46 +97,13 @@ int dimensione_lista(lista lista_corrente) {
 }
 
 /**
- * Trova la posizione di un elemento nella lista.
- *
- * Questa funzione scorre la lista cercando un veicolo corrispondente
- * a quello passato e ritorna la sua posizione (indice a base 0).
- * Il confronto avviene utilizzando la targa del veicolo.
- *
- * Pre-condizione: lista_corrente e elemento non sono NULL
- * Post-condizione: Ritorna l'indice dell'elemento se presente, -1 altrimenti.
- */
-int posizione_elemento(lista lista_corrente, Veicolo elemento) {
-    int pos = 0;
-
-    if (elemento == NULL) {
-        return -1;
-    }
-
-    /* Scorre la lista cercando l'elemento */
-    while (!lista_vuota(lista_corrente)) {
-        /* Confronta gli elementi in base alla targa */
-        if (strcmp(prendi_targa(ottieni_primo_elemento(lista_corrente)),
-                   prendi_targa(elemento)) == 0) {
-            return pos;
-        }
-
-        lista_corrente = ottieni_coda_lista(lista_corrente);
-        pos++;
-    }
-
-    /* Se l'elemento non è stato trovato */
-    return -1;
-}
-
-/**
  * Ottiene l'elemento alla posizione specificata nella lista.
  *
  * Pre-condizione: lista_corrente è una lista valida, posizione >= 0
- * Post-condizione: Ritorna il veicolo alla posizione specificata,
+ * Post-condizione: restituisce l'elemento alla posizione specificata,
  *                  o NULL se la posizione non è valida.
  */
-Veicolo ottieni_elemento(lista lista_corrente, int posizione) {
+void *ottieni_elemento(lista lista_corrente, int posizione) {
     int i = 0;
 
     /* Controlla che la posizione sia valida */
@@ -179,26 +146,4 @@ lista inverti_lista(lista lista_corrente) {
     }
 
     return lista_invertita;
-}
-
-/**
- * Stampa tutti gli elementi della lista.
- *
- * Questa funzione scorre la lista e stampa le informazioni di ogni veicolo.
- *
- * Pre-condizione: lista_corrente è una lista valida
- * Post-condizione: Vengono visualizzate a video le informazioni di tutti i veicoli.
- */
-void stampa_lista(lista lista_corrente) {
-    if (lista_vuota(lista_corrente)) {
-        printf("La lista è vuota\n");
-        return;
-    }
-
-    printf("\n===== ELENCO VEICOLI =====\n");
-    while (!lista_vuota(lista_corrente)) {
-        stampa_veicolo(ottieni_primo_elemento(lista_corrente));
-        lista_corrente = ottieni_coda_lista(lista_corrente);
-    }
-    printf("==========================\n\n");
 }
