@@ -24,6 +24,16 @@ struct prenotazione {
     float costo_totale;     /* Costo totale della prenotazione */
 };
 
+/**
+ * Calcola il costo totale di una prenotazione in base al periodo e al prezzo giornaliero.
+ * 
+ * Pre-condizioni: inizio e fine sono valori `time_t` validi, con fine >= inizio,
+ *                 costo è un valore float >= 0 che rappresenta il prezzo per giorno
+ * 
+ * Post-condizioni:  Ritorna il prezzo totale calcolato come (numero di giorni * costo al giorno),
+ *                   Se il noleggio dura almeno 30 giorni, applica uno sconto del 20%
+ *
+ */
 float calcola_costo(time_t inizio, time_t fine, float costo){
     int giorni;
     float prezzo;
@@ -61,8 +71,7 @@ Prenotazione crea_prenotazione(char *email, Veicolo veicolo, time_t inizio, time
     prenotazione->inizio=inizio;
     prenotazione->fine = fine;
     
-    prenotazione->costo_totale = calcola_costo(inizio, fine, infoCostoGiornaliero(veicolo));
-
+    
     /* Calcola il costo totale in base al costo giornaliero del veicolo */
     prenotazione->costo_totale = calcola_costo(inizio, fine, infoCostoGiornaliero(veicolo));
 
@@ -154,6 +163,13 @@ time_t prendi_fine(Prenotazione prenotazione) {
     return prenotazione->fine;
 }
 
+/**
+ * Restituisce  la targa del veicolo prenotato.
+ * 
+ * Pre-condizione: prenotazione != NULL
+ * Post-condizione: Ritorna una stirnga contente la targa del 
+ *                  veicolo prenotato.
+ */
 char *prendi_targa_veicolo(Prenotazione p){
     return prendi_targa(prendi_veicolo(p));
 }
@@ -205,47 +221,3 @@ void termina_prenotazione(Prenotazione prenotazione, Veicolo veicolo) {
     }
 }
 
-/**
- * Verifica la disponibilità di un veicolo in un determinato intervallo di tempo.
- * 
- * Controlla se il veicolo è disponibile e se non ci sono altre prenotazioni
- * che si sovrappongono all'intervallo richiesto.
- * 
- * Pre-condizione: lista != NULL, veicolo != NULL, inizio < fine
- * Post-condizione: Ritorna 1 se il veicolo è disponibile nel periodo specificato, 0 altrimenti
- */
-int verifica_disponibilita(ListaPrenotazioni lista, Veicolo veicolo, time_t inizio, time_t fine) {
-    /* Controlla prima se il veicolo è disponibile in generale */
-    if (!verifica_disponibilita(veicolo)) {
-        /* Se il veicolo non è disponibile, verifica se la fine del noleggio corrente
-           è prima dell'inizio del nuovo intervallo richiesto */
-        if (prendi_fine_noleggio(veicolo) <= inizio) {
-            /* Il veicolo sarà disponibile per il periodo richiesto */
-        } else {
-            /* Il veicolo non sarà disponibile per il periodo richiesto */
-            return 0;
-        }
-    }
-    
-    /* Scorre la lista di prenotazioni per verificare sovrapposizioni */
-    while (lista != NULL) {
-        Prenotazione p = lista->prenotazione;
-        Veicolo v = prendi_veicolo(p);
-        
-        /* Confronta il veicolo con quello della prenotazione corrente */
-        if (strcmp(prendi_targa(veicolo), prendi_targa(v)) == 0) {
-            /* Controlla se c'è sovrapposizione temporale */
-            if ((inizio >= prendi_inizio(p) && inizio < prendi_fine(p)) || 
-                (fine > prendi_inizio(p) && fine <= prendi_fine(p)) || 
-                (inizio <= prendi_inizio(p) && fine >= prendi_fine(p))) {
-                /* C'è sovrapposizione, il veicolo non è disponibile */
-                return 0;
-            }
-        }
-        
-        lista = lista->prossimo;
-    }
-    
-    /* Se arriviamo qui, il veicolo è disponibile nell'intervallo richiesto */
-    return 1;
-}

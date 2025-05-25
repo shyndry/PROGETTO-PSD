@@ -27,6 +27,16 @@ typedef struct nodo_prenotazione {
     struct nodo_prenotazione *prossimo;
 } *ListaPrenotazioni;
 
+/**
+ * Calcola il costo totale di una prenotazione in base al periodo e al prezzo giornaliero.
+ * 
+ * Pre-condizioni: inizio e fine sono valori `time_t` validi, con fine >= inizio,
+ *                 costo è un valore float >= 0 che rappresenta il prezzo per giorno
+ * 
+ * Post-condizioni:  Ritorna il prezzo totale calcolato come (numero di giorni * costo al giorno),
+ *                   Se il noleggio dura almeno 30 giorni, applica uno sconto del 20%
+ *
+ */
 float calcola_costo(time_t inizio, time_t fine, float costo)
 
 /**
@@ -106,6 +116,13 @@ time_t prendi_inizio(Prenotazione prenotazione);
  */
 time_t prendi_fine(Prenotazione prenotazione);
 
+/**
+ * Restituisce  la targa del veicolo prenotato.
+ * 
+ * Pre-condizione: prenotazione != NULL
+ * Post-condizione: Ritorna una stirnga contente la targa del 
+ *                  veicolo prenotato.
+ */
 char *prendi_targa_veicolo(Prenotazione p);
 
 /**

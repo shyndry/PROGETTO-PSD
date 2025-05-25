@@ -10,7 +10,6 @@
 #define NULLITEM 0
 
 #include <time.h>
-typedef struct nodo_veicolo *ListaVeicoli;
 
 
 /**
@@ -18,15 +17,6 @@ typedef struct nodo_veicolo *ListaVeicoli;
  * Rappresenta un singolo veicolo nel sistema di noleggio.
  */
 typedef struct veicolo *Veicolo;
-
-/**
- * Tipo di riferimento: ListaVeicoli.
- * Rappresenta una lista concatenata di veicoli.
- */
-typedef struct nodo_veicolo {
-    Veicolo veicolo;
-    struct nodo_veicolo *prossimo;
-} *ListaVeicoli;
 
 /**
  * Crea un nuovo veicolo con i parametri specificati.
@@ -85,44 +75,5 @@ int verifica_disponibilita(Veicolo veicolo);
  * Post-condizione: disponibile(veicolo) = stato
  */
 void imposta_disponibilita(Veicolo veicolo, int stato);
-
-/**
- * Restituisce il timestamp di fine noleggio di un veicolo.
- * 
- * Pre-condizione: veicolo != NULL
- * Post-condizione: fine = fine_noleggio(veicolo)
- * 
- * Ritorna: Timestamp di fine noleggio, 0 se il veicolo non è attualmente noleggiato
- */
-time_t prendi_fine_noleggio(Veicolo veicolo);
-
-/**
- * Imposta il timestamp di fine noleggio di un veicolo.
- * 
- * Pre-condizione: veicolo != NULL
- * Post-condizione: fine_noleggio(veicolo) = fine
- */
-void imposta_fine_noleggio(Veicolo veicolo, time_t fine);
-
-/**
- * Carica una lista di veicoli da un file.
- * 
- * Pre-condizione: nome_file != NULL, il file deve esistere e avere il formato corretto
- * Post-condizione: Ritorna una lista di veicoli caricati dal file
- * 
- * Ritorna: Una lista di veicoli caricati dal file
- */
-ListaVeicoli carica_veicoli_da_file(const char *nome_file);
-
-/**
- * Aggiorna lo stato di disponibilità dei veicoli nella lista.
- * 
- * Verifica se i veicoli noleggiati hanno superato la data di fine noleggio
- * e, in tal caso, li segna come disponibili.
- * 
- * Pre-condizione: lista != NULL
- * Post-condizione: Ogni veicolo nella lista viene aggiornato in base alla data corrente
- */
-void aggiorna_disponibilita(ListaVeicoli lista);
 
 #endif /* VEICOLO_H */
