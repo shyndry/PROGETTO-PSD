@@ -75,5 +75,5 @@ int verifica_disponibilita(Veicolo veicolo);
  * Post-condizione: disponibile(veicolo) = stato
  */
 void imposta_disponibilita(Veicolo veicolo, int stato);
-
+ 
 #endif /* VEICOLO_H */

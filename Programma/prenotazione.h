@@ -125,23 +125,5 @@ time_t prendi_fine(Prenotazione prenotazione);
  */
 char *prendi_targa_veicolo(Prenotazione p);
 
-/**
- * Verifica la disponibilità di un veicolo in un intervallo di tempo.
- *
- * Pre-condizione: lista != NULL, veicolo != NULL, inizio < fine
- * Post-condizione: disponibile = 1 se non ci sono prenotazioni per v che si sovrappongono
- *                 all'intervallo [inizio, fine], disponibile = 0 altrimenti
- *
- * Ritorna: 1 se il veicolo è disponibile, 0 altrimenti
- */
-int verifica_disponibilita(ListaPrenotazioni lista, Veicolo veicolo, time_t inizio, time_t fine);
-
-/**
- * Salva una prenotazione nello storico.
- *
- * Pre-condizione: prenotazione != NULL, il file storico deve essere accessibile in scrittura
- * Post-condizione: La prenotazione viene salvata in un file in formato leggibile
- */
-void salva_storico(Prenotazione prenotazione);
 
 #endif /* PRENOTAZIONE_H */

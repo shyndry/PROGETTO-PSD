@@ -108,10 +108,10 @@ void stampa_prenotazione(Prenotazione prenotazione) {
     
     /* Converte i timestamp in stringhe leggibili */
     tm_info = localtime(&prenotazione->inizio);
-    strftime(inizio_str, sizeof(inizio_str), "%d/%m/%Y %H:%M", tm_info);
+    strftime(inizio_str, sizeof(inizio_str), "%d/%m/%Y", tm_info);
     
     tm_info = localtime(&prenotazione->fine);
-    strftime(fine_str, sizeof(fine_str), "%d/%m/%Y %H:%M", tm_info);
+    strftime(fine_str, sizeof(fine_str), "%d/%m/%Y", tm_info);
     
     printf("\n==== DETTAGLI PRENOTAZIONE ====\n");
     printf("Email: %s\n", prenotazione->email);
@@ -174,50 +174,5 @@ char *prendi_targa_veicolo(Prenotazione p){
     return prendi_targa(prendi_veicolo(p));
 }
 
-/**
- * Salva i dettagli di una prenotazione nel file storico.
- * 
- * Pre-condizione: prenotazione != NULL, il file storico deve essere accessibile
- * Post-condizione: La prenotazione viene aggiunta al file di storico
- */
-void salva_storico(Prenotazione prenotazione) {
-    FILE *file = fopen("storico_noleggi.txt", "a");
-    if (!file) {
-        perror("Errore nell'apertura del file storico_noleggi.txt");
-        return;
-    }
 
-    fprintf(file, "Email: %s | Targa: %s | Inizio: %ld | Fine: %ld | Costo: %.2f\n",
-            prendi_email(prenotazione),
-            prendi_targa(prenotazione->veicolo),
-            prenotazione->inizio,
-            prenotazione->fine,
-            prendi_costo(prenotazione));
-
-    fclose(file);
-}
-
-/**
- * Termina una prenotazione esistente.
- * 
- * Verifica se la prenotazione è scaduta e, in tal caso,
- * rende nuovamente disponibile il veicolo e salva i dati nello storico.
- * 
- * Pre-condizione: prenotazione != NULL, veicolo != NULL
- * Post-condizione: Se scaduta, il veicolo viene reso disponibile
- */
-void termina_prenotazione(Prenotazione prenotazione, Veicolo veicolo) {
-    time_t ora_corrente;
-    time(&ora_corrente);
-    
-    /* Controlla se la prenotazione è terminata */
-    if (ora_corrente >= prenotazione->fine) {
-        /* Rende nuovamente disponibile il veicolo */
-        imposta_disponibilita(veicolo, 1);
-        imposta_fine_noleggio(veicolo, 0);
-        
-        /* Registra la prenotazione completata nello storico */
-        salva_storico(prenotazione);
-    }
-}
 

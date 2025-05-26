@@ -17,7 +17,7 @@ time_t converti_data(int giorno, int mese, int anno);
 /**
  * Richiede all'utente di inserire una data da tastiera e la converte in time_t.
  *
- * restituisce una data inserita dall' utente in time_t
+ * post-condizoni: restituisce una data inserita dall' utente in time_t
  */ 
 time_t inserisci_data();
 
@@ -34,7 +34,7 @@ void stampa_data(time_t t);
  * gg/mm/aaaa
  * 
  * Pre-condizione: buffer != NULL, size= dimesione buffer, size>=11
- * side-effect: buffer contiene la data in formato stringao
+ * side-effect: buffer contiene la data in formato stringa
  * 
  */
 void data_in_stringa(time_t tempo, char *buffer, size_t size);
@@ -42,16 +42,16 @@ void data_in_stringa(time_t tempo, char *buffer, size_t size);
 /**
  * coverte tutte le lettere di una stringa in lettere maiuscole
  * 
- * Pre-condizione: buffer deve terminare con \0
+ * Pre-condizione: buffer deve terminare con '\0'
  * side-effect: tutte le lettere di buffer duventano maiuscole 
  */
 void stringa_maiuscola(char *buffer);
 
 /**
- * coverte tutte le lettere di una stringa in lettere minuscile
+ * coverte tutte le lettere di una stringa in lettere minuscole
  * 
- * Pre-condizione: buffer deve terminare con \0
- * side-effect: tutte le lettere di buffer duventano minuscole 
+ * Pre-condizione: buffer deve terminare con '\0'
+ * side-effect: tutte le lettere di buffer diventano minuscole 
  */
 void stringa_minuscola(char *buffer);
 
