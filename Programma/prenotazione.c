@@ -167,7 +167,7 @@ time_t prendi_fine(Prenotazione prenotazione) {
  * Restituisce  la targa del veicolo prenotato.
  * 
  * Pre-condizione: prenotazione != NULL
- * Post-condizione: Ritorna una stirnga contente la targa del 
+ * Post-condizione: Ritorna una stringa contenente la targa del 
  *                  veicolo prenotato.
  */
 char *prendi_targa_veicolo(Prenotazione p){

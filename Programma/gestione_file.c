@@ -46,7 +46,7 @@ Veicolo trova_veicolo(char *targa, lista veicoli){
 lista carica_veicolo_file(char *nome_file) {
     FILE *fp = fopen(nome_file, "r");
     if (fp==NULL){
-        printf("errore nell' apertura file dei veicli \n");
+        printf("errore nell' apertura del file dei veicoli \n");
         return ;
     }
 
@@ -80,7 +80,7 @@ lista carica_veicolo_file(char *nome_file) {
  * Legge i dati delle prenotazioni da un file di testo con formato:
  * targa mail gg/mm/aaaa gg/mm/aaaa
  * 
- * Pre-condizione: nome_file != NULL, il file deve esistere e avere il formato corretto, tutte le auto prenotati
+ * Pre-condizione: nome_file != NULL, il file deve esistere e avere il formato corretto, tutte le auto prenotate
  *                 devono essere presenti in veicoli, 
  * Post-condizione: Ritorna una lista di prenotazioni caricati dal file
  */
@@ -120,7 +120,7 @@ lista carica_prenotazione_file(lista veicoli, char *nome_file) {
             aggiorna_storico_utente(email,p);
             free(p);
         }else{
-            imposta_disponibilita(v, 0); /*se il veicolo è nella lisat prenotazioni lo imposta la dispobilita a zero*/
+            imposta_disponibilita(v, 0); /*se il veicolo è nella lista prenotazioni imposta la disponibilita a zero*/
             pren=aggiungi_a_lista(p, pren);
         }
     }
@@ -129,7 +129,7 @@ lista carica_prenotazione_file(lista veicoli, char *nome_file) {
 }
 
 /**
- * copia una lista di prenorazioni in un file azzerando il contenuto precednete del file
+ * copia una lista di prenotazioni in un file azzerando il contenuto precedente del file
  * 
  * scrive i dati delle prenotazioni da un file di testo con formato:
  * targa mail gg/mm/aaaa gg/mm/aaaa

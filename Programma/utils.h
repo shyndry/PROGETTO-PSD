@@ -33,7 +33,7 @@ void stampa_data(time_t t);
  * converte un time_t in una stringa del tipo 
  * gg/mm/aaaa
  * 
- * Pre-condizione: buffer != NULL, size= dimesione buffer, size>=11
+ * Pre-condizione: buffer != NULL, size= dimensione buffer, size>=11
  * side-effect: buffer contiene la data in formato stringa
  * 
  */
@@ -43,7 +43,7 @@ void data_in_stringa(time_t tempo, char *buffer, size_t size);
  * coverte tutte le lettere di una stringa in lettere maiuscole
  * 
  * Pre-condizione: buffer deve terminare con '\0'
- * side-effect: tutte le lettere di buffer duventano maiuscole 
+ * side-effect: tutte le lettere di buffer diventano maiuscole 
  */
 void stringa_maiuscola(char *buffer);
 

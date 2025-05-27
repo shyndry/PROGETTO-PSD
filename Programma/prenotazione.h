@@ -18,14 +18,6 @@
  */
 typedef struct prenotazione *Prenotazione;
 
-/**
- * Tipo di riferimento: ListaPrenotazioni.
- * Rappresenta una lista concatenata di prenotazioni.
- */
-typedef struct nodo_prenotazione {
-    Prenotazione prenotazione;
-    struct nodo_prenotazione *prossimo;
-} *ListaPrenotazioni;
 
 /**
  * Calcola il costo totale di una prenotazione in base al periodo e al prezzo giornaliero.
@@ -37,7 +29,7 @@ typedef struct nodo_prenotazione {
  *                   Se il noleggio dura almeno 30 giorni, applica uno sconto del 20%
  *
  */
-float calcola_costo(time_t inizio, time_t fine, float costo)
+float calcola_costo(time_t inizio, time_t fine, float costo);
 
 /**
  * Crea una nuova prenotazione per un veicolo.
@@ -120,7 +112,7 @@ time_t prendi_fine(Prenotazione prenotazione);
  * Restituisce  la targa del veicolo prenotato.
  * 
  * Pre-condizione: prenotazione != NULL
- * Post-condizione: Ritorna una stirnga contente la targa del 
+ * Post-condizione: Ritorna una stringa contenente la targa del 
  *                  veicolo prenotato.
  */
 char *prendi_targa_veicolo(Prenotazione p);

@@ -44,7 +44,7 @@ int lista_vuota(lista lista_corrente) {
  * Pre-condizione: elemento != NULL
  * Post-condizione: Ritorna una nuova lista con l'elemento aggiunto in testa.
  */
-lista aggiungi_a_lista(void elemento, lista lista_corrente) {
+lista aggiungi_a_lista(void *elemento, lista lista_corrente) {
     lista nodo = malloc(sizeof(struct nodo));
     if (nodo == NULL) {
         fprintf(stderr, "Errore di allocazione memoria\n");

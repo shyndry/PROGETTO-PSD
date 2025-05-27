@@ -43,7 +43,7 @@ lista prenota_veicolo(char *email, lista veicoli, lista prenotazioni);
  * stampa tutte le prenotazioni effettuate dall' utente che sono ancora in corso
  * 
  * pre-condizioni: email != NULL
- * output: stampa le prenotazioni dell' utente a schemo, se l' utente non 
+ * output: stampa le prenotazioni dell' utente a schermo, se l' utente non 
  *         ha effettuato prenotazioni viene stampato a schermo un messaggio 
  *         di avvertenza.
  */

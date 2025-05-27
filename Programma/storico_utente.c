@@ -6,7 +6,7 @@
 #include "list.h"
 #include "utils.h"
 #include <time.h>
-#include "utenti.h"
+#include "utente.h"
 
 
 
@@ -40,8 +40,8 @@ int cerca_mail(char *email, FILE *fp){
             return cont;
         }
     }
-    /*se non tova la mail la funzione crea nel file lo spazio 
-    per la mail e la fun zione si richima in modo riorsivo*/
+    /*se non trova la mail la funzione crea nel file lo spazio 
+    per la mail e la funzione si richiama in modo ricorsivo*/
     fclose(fp); 
     crea_utente_storico(email); 
     fp=fopen("storico_utenti.txt", "r+");
@@ -49,7 +49,7 @@ int cerca_mail(char *email, FILE *fp){
 }
 
 
-/*ritorna le righe del file fino alla fine dello sotrico 
+/*ritorna le righe del file fino alla fine dello storico 
 della mail passata per argomento*/
 int conta_righe(char *email, FILE *fp){
     int count=0;
@@ -90,9 +90,9 @@ void aggiorna_storico_utente(char *email ,Prenotazione p){
     char riga[251];
     char data[11];
     
-    cont=conta_righe(email, fp);//legge il file fino alla fine dello storico dell' utente desidersto
+    cont=conta_righe(email, fp);//legge il file fino alla fine dello storico dell' utente desiderato
     
-    // aggiunge la nuova prenazione nello sotrico dell' utente 
+    // aggiunge la nuova prenazione nello storico dell' utente 
     fprintf(temp, "%s ",  prendi_targa_veicolo(p));
     data_in_stringa(prendi_inizio_noleggio(p), data, sizeof(data));
     fprintf(temp, "%s ", data);
@@ -101,7 +101,7 @@ void aggiorna_storico_utente(char *email ,Prenotazione p){
     
 
     while (fgets(riga, sizeof(riga), fp))/*stampa nel file temporaneo la nuova prenotazione 
-    e  la paete restante del file storico_utenti */
+    e  la parte restante del file storico_utenti */
     {
         riga[strcspn(riga, "\n")] = '\0';
         fprintf(temp, "%s\n",  riga);
@@ -109,7 +109,7 @@ void aggiorna_storico_utente(char *email ,Prenotazione p){
     
     rewind(fp);
     rewind(temp);
-    //aggiorna il file utnente storico 
+    //aggiorna il file utente storico 
     for(int i=0; i<cont; i++){
         fgets(riga, sizeof(riga), fp);
     }

@@ -32,7 +32,7 @@ lista carica_veicolo_file(char *nome_file);
  * Legge i dati delle prenotazioni da un file di testo con formato:
  * targa mail gg/mm/aaaa gg/mm/aaaa
  * 
- * Pre-condizione: nome_file != NULL, il file deve esistere e avere il formato corretto, tutte le auto prenotati
+ * Pre-condizione: nome_file != NULL, il file deve esistere e avere il formato corretto, tutte le auto prenotate
  *                 devono essere presenti in veicoli, 
  * Post-condizione: Ritorna una lista di prenotazioni caricati dal file
  * 
@@ -41,8 +41,8 @@ lista carica_veicolo_file(char *nome_file);
 lista carica_prenotazione_file(lista veicoli,char *nome_file);
 
 /**
- * copia una lista di prenorazioni in un file
- * 
+ * copia una lista di prenotazioni in un file
+ *
  * scrive i dati delle prenotazioni da un file di testo con formato:
  * targa mail gg/mm/aaaa gg/mm/aaaa
  * 

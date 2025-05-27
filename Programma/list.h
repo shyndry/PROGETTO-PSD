@@ -85,3 +85,4 @@ void *ottieni_elemento(lista lista_corrente, int posizione);
  * Ritorna: Una nuova lista con gli elementi in ordine invertito.
  */
 lista inverti_lista(lista lista_corrente);
+#endif

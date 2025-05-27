@@ -28,7 +28,7 @@ int trova_email(char *email, FILE *fp) {
     
     /* Rimuove il carattere newline dalla stringa */
     email[strcspn(email, "\n")] = '\0';
-    
+    stringa_minuscola(email);
     while(1) {
         /* Legge l'email dal file fino al separatore ';' */
         while((c = fgetc(fp)) != ';' && c != EOF) {

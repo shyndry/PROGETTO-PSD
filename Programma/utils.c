@@ -62,7 +62,7 @@ void stampa_data(time_t t){
  * converte un time_t in una stringa del tipo 
  * gg/mm/aaaa
  * 
- * Pre-condizione: buffer != NULL, size= dimesione buffer, size>=11
+ * Pre-condizione: buffer != NULL, size= dimensione buffer, size>=11
  * side-effect: buffer contiene la data in formato stringa
  * 
  */
@@ -87,7 +87,7 @@ void stringa_maiuscola(char *buffer){
  * coverte tutte le lettere di una stringa in lettere minuscole
  * 
  * Pre-condizione: buffer deve terminare con '\0'
- * side-effect: tutte le lettere di buffer duventano minuscole 
+ * side-effect: tutte le lettere di buffer diventano minuscole 
  */
 void stringa_minuscola(char *buffer){
     for(int i=0; i<strlen(buffer); i++){

@@ -80,7 +80,7 @@ lista prenota_veicolo(char *email, lista veicoli, lista prenotazioni){
     Veicolo v;
     time(&now);
     printf("\n======= INSERISCI INTERVALLO PRENOTAZIONE =======\n");
-    printf(" dai 30 giorni in su verra applicato il 20\% di sconto\n");
+    printf(" dai 30 giorni in su verra applicato il 20%% di sconto\n");
     printf("\n inserire la data di inizo del noleggio\n");
     inizio=inserisci_data();
     /*controlla che l'inzio della prenotazione sia maggiore della data odierna*/
@@ -138,7 +138,7 @@ lista prenota_veicolo(char *email, lista veicoli, lista prenotazioni){
  * stampa tutte le prenotazioni effettuate dall' utente che sono ancora in corso
  * 
  * pre-condizioni: email != NULL
- * output: stampa le prenotazioni dell' utente a schemo, se l' utente non 
+ * output: stampa le prenotazioni dell' utente a schermo, se l' utente non 
  *         ha effettuato prenotazioni viene stampato a schermo un messaggio 
  *         di avvertenza.
  */

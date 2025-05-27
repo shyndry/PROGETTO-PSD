@@ -28,7 +28,7 @@ typedef struct veicolo *Veicolo;
  * 
  * Ritorna: Un nuovo veicolo con targa, modello e costo specificati
  */
-Veicolo crea_veicolo(char *targa, char *modello, float costo_giornaliero);
+Veicolo crea_veicolo(char *targa, char *modello, float costo_giornaliero, char *luogo);
 
 /**
  * Stampa le informazioni di un veicolo.
