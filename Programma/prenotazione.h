@@ -20,25 +20,52 @@ typedef struct prenotazione *Prenotazione;
 
 
 /**
+ * Funzione: calcola_costo
+ * ---
  * Calcola il costo totale di una prenotazione in base al periodo e al prezzo giornaliero.
  * 
- * Pre-condizioni: inizio e fine sono valori `time_t` validi, con fine >= inizio,
- *                 costo è un valore float >= 0 che rappresenta il prezzo per giorno
+ * Parametri:
+ * inizio: data di inizio del noleggio (tipo time_t)
+ * fine: data di fine del noleggio (tipo time_t)
+ * costo: prezzo per giorno (float >= 0)
  * 
- * Post-condizioni:  Ritorna il prezzo totale calcolato come (numero di giorni * costo al giorno),
- *                   Se il noleggio dura almeno 30 giorni, applica uno sconto del 20%
- *
+ * Pre-condizione:
+ * - inizio e fine devono essere date valide
+ * - fine >= inizio
+ * - costo >= 0
+ * 
+ * Post-condizione:
+ * - Ritorna il costo totale: numero di giorni * costo al giorno
+ * - Se il noleggio dura almeno 30 giorni, applica uno sconto del 20%
+ * 
+ * Ritorna:
+ * float: costo finale della prenotazione
  */
 float calcola_costo(time_t inizio, time_t fine, float costo);
 
 /**
- * Crea una nuova prenotazione per un veicolo.
- *
- * Pre-condizione: email != NULL && strlen(email) > 0, veicolo != NULL, giorni > 0, inzio<=fine
- * Post-condizione: email(p) = email, veicolo(p) = veicolo, inizio(p) = inizio,
- *                 fine(p) = fine, costo_totale(p) = giorni * prendi_costo_giornaliero(veicolo)
- *
- * Ritorna: Una nuova prenotazione inizializzata
+ * Funzione: crea_prenotazione
+ * ---
+ * Crea una nuova prenotazione per un veicolo, calcolandone costo e durata.
+ * 
+ * Parametri:
+ * email: indirizzo email del cliente
+ * veicolo: struttura contenente i dati del veicolo prenotato
+ * inizio: data di inizio della prenotazione
+ * fine: data di fine della prenotazione
+ * 
+ * Pre-condizione:
+ * - email != NULL && strlen(email) > 0
+ * - veicolo != NULL
+ * - inizio <= fine
+ * 
+ * Post-condizione:
+ * - Viene allocata e restituita una nuova struttura Prenotazione
+ * - Il veicolo viene segnato come non disponibile
+ * - Viene calcolato e salvato il costo totale
+ * 
+ * Ritorna:
+ * Puntatore a struttura Prenotazione (non NULL)
  */
 Prenotazione crea_prenotazione(char *email, Veicolo veicolo, time_t inzio, time_t fine);
 
@@ -51,69 +78,137 @@ Prenotazione crea_prenotazione(char *email, Veicolo veicolo, time_t inzio, time_
 void termina_prenotazione(Prenotazione prenotazione, Veicolo veicolo);
 
 /**
- * visualizza il costo totale di una prenotazione.
- *
- * Pre-condizione: prenotazione != NULL, fine(p) > inizio(p)
- * Post-condizione: costo = costo_totale(p)
- *
- * Ritorna: Il costo totale della prenotazione
+ * Funzione: prendi_costo
+ * ---
+ * Restituisce il costo totale di una prenotazione.
+ * 
+ * Parametri:
+ * prenotazione: struttura Prenotazione da cui ottenere il costo
+ * 
+ * Pre-condizione:
+ * - prenotazione != NULL
+ * 
+ * Post-condizione:
+ * - Ritorna il costo totale salvato nella prenotazione
+ * 
+ * Ritorna:
+ * float: costo totale della prenotazione
  */
 float prendi_costo(Prenotazione prenotazione);
 
 /**
- * Stampa i dettagli di una prenotazione.
- *
- * Pre-condizione: prenotazione != NULL
- * Post-condizione: Vengono stampate su output tutte le informazioni della prenotazione
+ * Funzione: stampa_prenotazione
+ * ---
+ * Stampa a video tutti i dettagli di una prenotazione in formato leggibile.
+ * 
+ * Parametri:
+ * prenotazione: struttura contenente i dettagli della prenotazione
+ * 
+ * Pre-condizione:
+ * - prenotazione != NULL
+ * 
+ * Post-condizione:
+ * - Stampa su stdout email, veicolo, date e costo totale della prenotazione
+ * 
+ * Effetti collaterali:
+ * - Output su schermo
  */
 void stampa_prenotazione(Prenotazione prenotazione);
 
 /**
- * Restituisce l'email dell'utente associato alla prenotazione.
- *
- * Pre-condizione: prenotazione != NULL, email(p) != NULL
- * Post-condizione: email = email(p)
- *
- * Ritorna: Puntatore alla stringa email
+ * Funzione: prendi_email
+ * ---
+ * Restituisce l’email associata alla prenotazione.
+ * 
+ * Parametri:
+ * prenotazione: prenotazione da cui recuperare l’email
+ * 
+ * Pre-condizione:
+ * - prenotazione != NULL
+ * 
+ * Post-condizione:
+ * - Ritorna il campo email della prenotazione
+ * 
+ * Ritorna:
+ * Puntatore a char (stringa email)
  */
 char *prendi_email(Prenotazione prenotazione);
 
 /**
+ * Funzione: prendi_veicolo
+ * ---
  * Restituisce il veicolo associato alla prenotazione.
- *
- * Pre-condizione: prenotazione != NULL
- * Post-condizione: veicolo = veicolo(p)
- *
- * Ritorna: Puntatore al veicolo associato
+ * 
+ * Parametri:
+ * prenotazione: prenotazione da cui ottenere il veicolo
+ * 
+ * Pre-condizione:
+ * - prenotazione != NULL
+ * 
+ * Post-condizione:
+ * - Ritorna il veicolo contenuto nella prenotazione
+ * 
+ * Ritorna:
+ * Struttura Veicolo
  */
+
 Veicolo prendi_veicolo(Prenotazione prenotazione);
 
 /**
- * Restituisce il timestamp di inizio della prenotazione.
- *
- * Pre-condizione: prenotazione != NULL
- * Post-condizione: inizio = inizio(p)
- *
- * Ritorna: Timestamp di inizio prenotazione
+ * Funzione: prendi_inizio
+ * ---
+ * Restituisce la data di inizio della prenotazione.
+ * 
+ * Parametri:
+ * prenotazione: struttura prenotazione da cui estrarre la data
+ * 
+ * Pre-condizione:
+ * - prenotazione != NULL
+ * 
+ * Post-condizione:
+ * - Ritorna il timestamp dell’inizio del noleggio
+ * 
+ * Ritorna:
+ * time_t: data di inizio
  */
 time_t prendi_inizio(Prenotazione prenotazione);
 
 /**
- * Restituisce il timestamp di fine della prenotazione.
- *
- * Pre-condizione: prenotazione != NULL
- * Post-condizione: fine = fine(p)
- *
- * Ritorna: Timestamp di fine prenotazione
+ * Funzione: prendi_fine
+ * ---
+ * Restituisce la data di fine della prenotazione.
+ * 
+ * Parametri:
+ * prenotazione: struttura prenotazione da cui estrarre la data
+ * 
+ * Pre-condizione:
+ * - prenotazione != NULL
+ * 
+ * Post-condizione:
+ * - Ritorna il timestamp della fine del noleggio
+ * 
+ * Ritorna:
+ * time_t: data di fine
  */
 time_t prendi_fine(Prenotazione prenotazione);
 
+
 /**
- * Restituisce  la targa del veicolo prenotato.
+ * Funzione: prendi_targa_veicolo
+ * ---
+ * Restituisce la targa del veicolo associato alla prenotazione.
  * 
- * Pre-condizione: prenotazione != NULL
- * Post-condizione: Ritorna una stringa contenente la targa del 
- *                  veicolo prenotato.
+ * Parametri:
+ * p: struttura prenotazione da cui ottenere la targa
+ * 
+ * Pre-condizione:
+ * - p != NULL
+ * 
+ * Post-condizione:
+ * - Ritorna una stringa contenente la targa del veicolo prenotato
+ * 
+ * Ritorna:
+ * Puntatore a char (stringa targa)
  */
 char *prendi_targa_veicolo(Prenotazione p);
 

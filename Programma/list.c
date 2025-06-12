@@ -8,7 +8,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "list.h"
-#include "veicolo.h"
 
 /**
  * Struttura interna del nodo della lista.

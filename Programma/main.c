@@ -28,7 +28,7 @@ int main(){
     if(veicoli==NULL){
         return 0;
     }
-    prenotazioni=carica_prenotazione_file(veicoli, "prenotazioni.txt");
+    prenotazioni=carica_prenotazione_file(veicoli, "prenotazioni.txt", "sotrico_utenti.txt");
     // il ciclo while permette di visualizzare il menu e di effettuare le operazioni
     while(1){
         printf("\n=========== MENU ============\n"); 
@@ -43,7 +43,7 @@ int main(){
             break;
         case 2:
             printf("\n Hai scelto: visualizza il proprio storico\n");
-            stampa_storico(email);
+            stampa_storico(email, "storico_utenti.txt");
             break;
         case 3:
             printf("\n Hai scelto: visualizza prenotazioni effettuate\n");

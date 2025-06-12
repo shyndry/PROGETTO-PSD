@@ -10,17 +10,26 @@
 #include "storico_utente.h"
 
 /**
- * Trova e restituisce un veicolo in base alla targa.
+ * Funzione: trova_veicolo
+ * ---
+ * Cerca un veicolo nella lista in base alla targa fornita.
  * 
+ * Parametri:
+ * targa: stringa contenente la targa da cercare (terminata con '\0')
+ * veicoli: lista di veicoli in cui cercare
  * 
- * Pre-condizioni:`targa` è una stringa valida e terminata da '\0',
- *                 `veicoli` è una lista valida di elementi 
- *                  di tipo `Veicolo`
+ * Pre-condizione:
+ * - targa deve essere una stringa valida e terminata da '\0'
+ * - veicoli deve essere una lista valida di elementi di tipo Veicolo
  * 
- * Post-condizioni: Ritorna il veicolo corrispondente alla targa se trovato,
- *                  Ritorna NULL se nessun veicolo con quella 
- *                  targa è presente nella lista
-*/
+ * Post-condizione:
+ * - Se trovato, restituisce il puntatore al veicolo con la targa specificata
+ * - Se non trovato, restituisce NULL
+ * - La lista originale rimane invariata
+ * 
+ * Ritorna:
+ * Puntatore al veicolo trovato o NULL se non trovato
+ */
 Veicolo trova_veicolo(char *targa, lista veicoli){
     Veicolo v;
     while(!lista_vuota(veicoli)){
@@ -35,19 +44,35 @@ Veicolo trova_veicolo(char *targa, lista veicoli){
 
 
 /**
- * Carica una lista di veicoli da un file.
+ * Funzione: carica_veicolo_file
+ * ---
+ * Carica una lista di veicoli da un file di testo con formato specifico.
  * 
- * Legge i dati dei veicoli da un file di testo con formato:
+ * Formato file:
  * targa;modello;costo_giornaliero;luogo
  * 
- * Pre-condizione: nome_file != NULL, il file deve esistere e avere il formato corretto
- * Post-condizione: Ritorna una lista di veicoli caricati dal file
+ * Parametri:
+ * nome_file: percorso del file da cui leggere i dati dei veicoli
+ * 
+ * Pre-condizione:
+ * - nome_file != NULL
+ * - Il file deve esistere ed essere leggibile
+ * - Il file deve seguire il formato specificato
+ * 
+ * Post-condizione:
+ * - Restituisce una lista contenente tutti i veicoli letti dal file
+ * - In caso di errore, restituisce NULL e stampa un messaggio di errore
+ * - Il file viene chiuso correttamente
+ * 
+ * Ritorna:
+ * Lista di veicoli caricati dal file o NULL in caso di errore
  */
+
 lista carica_veicolo_file(char *nome_file) {
     FILE *fp = fopen(nome_file, "r");
     if (fp==NULL){
         printf("errore nell' apertura del file dei veicoli \n");
-        return ;
+        return NULL;
     }
 
     lista l=nuova_lista();
@@ -75,20 +100,41 @@ lista carica_veicolo_file(char *nome_file) {
 }
 
 /**
- * Carica una lista di prenotazioni da un file.
+ * Funzione: carica_prenotazione_file
+ * ---
+ * Carica una lista di prenotazioni da file, verificandone la validità temporale
+ * e spostando quelle scadute nello storico.
  * 
- * Legge i dati delle prenotazioni da un file di testo con formato:
+ * Formato file:
  * targa mail gg/mm/aaaa gg/mm/aaaa
  * 
- * Pre-condizione: nome_file != NULL, il file deve esistere e avere il formato corretto, tutte le auto prenotate
- *                 devono essere presenti in veicoli, 
- * Post-condizione: Ritorna una lista di prenotazioni caricati dal file
+ * Parametri:
+ * veicoli: lista dei veicoli disponibili (per verifica corrispondenza)
+ * nome_file: percorso del file delle prenotazioni attive
+ * nome_file_storico: percorso del file dello storico prenotazioni
+ * 
+ * Pre-condizione:
+ * - nome_file != NULL e nome_file_storico != NULL
+ * - I file devono esistere ed essere leggibili
+ * - Tutti i veicoli prenotati devono essere presenti nella lista veicoli
+ * - Il file deve seguire il formato specificato
+ * 
+ * Post-condizione:
+ * - Restituisce una lista contenente solo le prenotazioni ancora valide
+ * - Le prenotazioni scadute vengono aggiunte allo storico
+ * - I veicoli con prenotazioni attive vengono marcati come non disponibili
+ * - In caso di errore, restituisce NULL e stampa un messaggio di errore
+ * - I file vengono chiusi correttamente
+ * 
+ * Ritorna:
+ * Lista di prenotazioni valide o NULL in caso di errore
  */
-lista carica_prenotazione_file(lista veicoli, char *nome_file) {
+
+lista carica_prenotazione_file(lista veicoli, char *nome_file, char *nome_file_storico) {
     FILE *fp = fopen(nome_file, "r");
     if (fp==NULL){
         printf("errore nell' apertura file prenotazioni \n");
-        return ;
+        return NULL;
     }
     lista temp;
     lista pren=nuova_lista();
@@ -117,7 +163,7 @@ lista carica_prenotazione_file(lista veicoli, char *nome_file) {
         
         /*se la prenotazione non è piu valida la elimina e la aggiunge allo storico*/
         if(now>prendi_fine(p)){
-            aggiorna_storico_utente(email,p);
+            aggiorna_storico_utente(email,p, nome_file_storico);
             free(p);
         }else{
             imposta_disponibilita(v, 0); /*se il veicolo è nella lista prenotazioni imposta la disponibilita a zero*/
@@ -129,13 +175,31 @@ lista carica_prenotazione_file(lista veicoli, char *nome_file) {
 }
 
 /**
- * copia una lista di prenotazioni in un file azzerando il contenuto precedente del file
+ * Funzione: aggiorna_file_prenotazioni
+ * ---
+ * Salva l'intera lista di prenotazioni su file, sovrascrivendo il contenuto precedente.
  * 
- * scrive i dati delle prenotazioni da un file di testo con formato:
+ * Formato file:
  * targa mail gg/mm/aaaa gg/mm/aaaa
  * 
- * Pre-condizione: nome_file != NULL 
+ * Parametri:
+ * prenotazioni: lista delle prenotazioni da salvare
+ * nome_file: percorso del file in cui salvare le prenotazioni
+ * 
+ * Pre-condizione:
+ * - nome_file != NULL
+ * - Il file deve essere scrivibile
+ * 
+ * Post-condizione:
+ * - Tutte le prenotazioni vengono scritte nel file specificato
+ * - La memoria delle prenotazioni viene liberata
+ * - In caso di errore, stampa un messaggio di errore
+ * - Il file viene chiuso correttamente
+ * 
+ * Ritorna:
+ * Nessun valore di ritorno
  */
+
 void aggiorna_file_prenotazioni(lista prenotazioni, char *nome_file){
     FILE *fp = fopen(nome_file, "w");
     if (fp==NULL){
