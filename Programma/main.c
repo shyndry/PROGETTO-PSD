@@ -52,6 +52,10 @@ int main(){
         case 4:
             printf("Uscita dal programma...\n");
             aggiorna_file_prenotazioni(prenotazioni, "prenotazioni.txt");
+            while(!lista_vuota(veicoli)){
+            free(ottieni_primo_elemento(veicoli));
+            veicoli=ottieni_coda_lista(veicoli);
+            }
             return 0;
             break;
         default:
