@@ -1,0 +1,10 @@
+AB123CD;fiat 500;25.00;salerno
+XY987ZT;tesla model 3;55.00;salerno
+LM456OP;renault clio;30.00;napoli
+EF321GH;bmw x1;50.00;napoli
+JK654LM;audi a3;40.00;salerno
+PO789QR;peugeot 208;30.00;salerno
+ST111UV;mercedes amg gt;750.00;napoli
+WX222YZ;volkswagen golf;75.00;napoli
+GH333IJ;mercedes a-class;75.00;salerno
+KL444MN;citroen c3;26.00;salerno
