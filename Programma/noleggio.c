@@ -218,7 +218,7 @@ void stampa_prenotazioni_utente(char *email, lista p){
     }
     /*se non sono presenti prenotazioni associate ad "email" verra stampato un messaggio apposito*/
     if(cont == 0){
-        printf("non sono prensti prenotazioni a nome dell' utnete al momento\n");
+        printf("non sono presenti prenotazioni a nome dell' utente al momento\n");
     }
 }
 
